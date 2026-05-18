@@ -1,0 +1,15 @@
+@import "tailwindcss";
+ @plugin "daisyui" {
+   themes: all}
+
+
+@plugin 'tailwind-scrollbar';
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
