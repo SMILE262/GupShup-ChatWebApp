@@ -10,7 +10,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://gupshup-chatwebappbackend.onrender.com",
+    origin: "https://gupshup-chatwebappfrontend.onrender.com",
   },
 });
 
