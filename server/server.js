@@ -10,7 +10,7 @@ connectDb();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://gupshup-chatwebappbackend.onrender.com"],
     credentials: true,
   }),
 );
