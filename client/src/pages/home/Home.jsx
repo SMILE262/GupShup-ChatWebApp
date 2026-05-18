@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Message from './Message.jsx'
-import UserSideBar from './userSideBar'
+import UserSideBar from './UserSideBar.jsx'
 import { useDispatch, useSelector } from "react-redux"
 import { initializeSocket, setOnlineUsers } from "../../store/slice/socket/socketSlice.js"
 import { addMessage } from "../../store/slice/message/messageSlice.js"
