@@ -44,7 +44,7 @@ export const register = asyncHandler(async (req, res, next) => {
       ),
       httpOnly: true,
       secure: true,
-      sameSite: "None",
+      sameSite: "none",
     })
     .json({
       success: true,
