@@ -17,7 +17,7 @@ const User = ({ userDetails }) => {
 
     return (
         <div onClick={handleUserClick}
-            className={`flex hover:bg-gray-200 mx-2 rounded-[10px] px-2 ${userDetails?._id === selectedUser?._id && 'bg-gray-200'}`}>
+            className={`flex min-w-full hover:bg-gray-200 mx-2 rounded-[10px] px-2 ${userDetails?._id === selectedUser?._id && 'bg-gray-200'}`}>
             <div className={`avatar ${isUserOnline ? 'avatar-online' : ''}`}>
                 <div className="p-1 w-14">
                     <img className='rounded-full' src={userDetails?.avatar} />

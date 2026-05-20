@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getMessageThunk, sendMessageThunk } from "./messageThunk";
+import { getMessageThunk, sendMessageThunk, deleteMessageThunk } from "./messageThunk";
 
 const initialState = {
   buttonLoading: false,
@@ -37,6 +37,20 @@ export const messageSlice = createSlice({
       state.buttonLoading = false;
     });
     builder.addCase(getMessageThunk.rejected, (state, action) => {
+      state.buttonLoading = false;
+    });
+
+    // deleteMessage
+    builder.addCase(deleteMessageThunk.pending, (state) => {
+      state.buttonLoading = true;
+    });
+    builder.addCase(deleteMessageThunk.fulfilled, (state, action) => {
+      state.messages = state.messages?.filter(
+        (message) => message?._id !== action.payload?.responseData?._id,
+      );
+      state.buttonLoading = false;
+    });
+    builder.addCase(deleteMessageThunk.rejected, (state) => {
       state.buttonLoading = false;
     });
   },

@@ -48,6 +48,12 @@ export const logoutUserThunk = createAsyncThunk(
     try {
       const response = await axiosInstance.post("/user/logout");
       toast.success("Logout Successful");
+
+      if (typeof window !== "undefined") {
+        window.localStorage.removeItem("gupshupThemeIndex");
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+
       return response.data;
     } catch (error) {
       console.error(error);

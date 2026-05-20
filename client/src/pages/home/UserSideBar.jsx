@@ -4,11 +4,9 @@ import User from './User';
 import { HiOutlineLogout } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux"
 import { getOtherUsersThunk, logoutUserThunk } from '../../store/slice/user/userThunk';
-import { useNavigate } from "react-router-dom"
 
 const UserSideBar = () => {
 
-  const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useDispatch()
   const [users, setUsers] = useState([])
@@ -46,7 +44,7 @@ const UserSideBar = () => {
           <FiSearch />
         </label>
       </div>
-      <div className='h-full flex flex-col gap-1 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-[#54bee4]/15 scrollbar-track-[#c8e8f4]/15 cursor-pointer'>
+      <div className='h-full flex flex-col gap-1 overflow-y-scroll overflow-x-clip scroll-smooth scrollbar-thin scrollbar-thumb-[#54bee4]/15 scrollbar-track-[#c8e8f4]/15 cursor-pointer'>
         {users?.map(userDetails => {
           return (
             <User key={userDetails?._id} userDetails={userDetails} />
@@ -54,7 +52,7 @@ const UserSideBar = () => {
         })}
       </div>
       <div className='border-t-1 border-gray-300 border-r-1 flex justify-between px-2 py-1 rounded-md items-center '>
-        <div onClick={() => navigate("/UserProfile.jsx")} className='hover:bg-gray-300 flex gap-3 items-center p-2 rounded-3xl '>
+        <div  className='hover:bg-gray-300 flex gap-3 items-center p-2 rounded-3xl '>
           <div className="avatar size-9 ">
             <div className="ring-info ring-offset-base-100 w-24 rounded-full ring-2 ring-offset-2 ">
               <img src={

@@ -9,8 +9,12 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
   const receiverId = req.params.receiverId;
   const message = req.body.message;
 
-  if (!senderId || !receiverId || !message) {
+  if (!senderId || !receiverId ) {
     return next(new errorHandler("All fields are required", 400));
+  }
+
+  if (!message){
+    return next(new errorHandler("Message cannot be empty"))
   }
 
   let conversation = await Conversation.findOne({
@@ -44,6 +48,44 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
     responseData: newMessage,
   });
 
+});
+
+export const deleteMessage = asyncHandler(async (req, res, next) => {
+  const userId = req.user._id;
+  const { messageId } = req.params;
+
+  if (!messageId) {
+    return next(new errorHandler("Message ID is required", 400));
+  }
+
+  const deletedMessage = await Message.findById(messageId);
+
+  if (!deletedMessage) {
+    return next(new errorHandler("Message not found", 404));
+  }
+
+  const senderId = deletedMessage.senderId?.toString();
+  const receiverId = deletedMessage.receiverId?.toString();
+  const currentUser = userId.toString();
+
+  if (currentUser !== senderId && currentUser !== receiverId) {
+    return next(new errorHandler("Not authorized to delete this message", 403));
+  }
+
+  await Message.findByIdAndDelete(messageId);
+  await Conversation.findOneAndUpdate(
+    {
+      participants: { $all: [deletedMessage.senderId, deletedMessage.receiverId] },
+    },
+    {
+      $pull: { message: messageId },
+    },
+  );
+
+  res.status(200).json({
+    success: true,
+    responseData: deletedMessage,
+  });
 });
 
 export const getMessages = asyncHandler(async (req, res, next) => {

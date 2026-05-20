@@ -34,3 +34,18 @@ export const getMessageThunk = createAsyncThunk(
   },
 );
 
+export const deleteMessageThunk = createAsyncThunk(
+  "message/delete",
+  async (messageId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete(`/message/${messageId}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      const errorOutput = error?.response?.data?.errMessage;
+      toast.error(errorOutput);
+      return rejectWithValue(errorOutput);
+    }
+  },
+);
+
